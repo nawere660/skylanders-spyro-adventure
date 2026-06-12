@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flameslinger - Skylanders Spyro's Adventure</title>
+    <link href="../style.css" rel="stylesheet">
+    <style>
+      .skylander-hero {
+        background: linear-gradient(135deg, #dc3545 0%, rgba(0,0,0,.3) 100%);
+        color: #fff;
+        padding: 3rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .skylander-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50%;
+        height: 100%;
+        background: url('https://via.placeholder.com/600x400?text=Flameslinger') center/cover;
+        opacity: 0.3;
+      }
+      .skylander-hero .container {
+        position: relative;
+        z-index: 1;
+      }
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      .stat-card {
+        background: rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        text-align: center;
+      }
+      .stat-card h3 {
+        margin: 0 0 0.5rem 0;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: #666;
+      }
+      .stat-card p {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body class="bg-light text-dark">
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand" href="../index.html">Skylanders Spyro's Adventure</a>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Accueil</a></li>
+          <li class="nav-item"><a class="nav-link" href="../List.html">Liste des figurines</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="skylander-hero">
+      <div class="container">
+        <a href="../List.html" class="btn btn-light mb-3" style="width: fit-content;">← Retour</a>
+        <h1 style="font-size: 3rem; margin: 1rem 0 0.5rem 0;">Flameslinger</h1>
+        <span class="badge" style="background-color: #dc3545; color: #fff; font-size: 1.1rem; padding: 0.5rem 1rem;">feu</span>
+      </div>
+    </div>
+
+    <main class="container py-5">
+      <div class="card shadow-sm border-0 mb-5">
+        <div class="card-body p-4">
+          <p class="text-muted mb-0">Cow-boy pyro avec des tirs enflammés.</p>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3>Attaque</h3>
+          <p>8</p>
+        </div>
+        <div class="stat-card">
+          <h3>Défense</h3>
+          <p>6</p>
+        </div>
+        <div class="stat-card">
+          <h3>Vitesse</h3>
+          <p>8</p>
+        </div>
+      </div>
+
+      <section class="mt-5">
+        <h2>Améliorations</h2>
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+            <ul style="margin: 0; padding-left: 1.5rem;">
+              <li>Pistolet de feu</li><li>Tir incandescent</li><li>Vague de flamme</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-4 bg-white border-top">
+      <div class="container text-center">
+        <p class="mb-0">© 2026 Skylanders Spyro's Adventure</p>
+      </div>
+    </footer>
+  </body>
+</html>

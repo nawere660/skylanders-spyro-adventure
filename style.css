@@ -40,10 +40,18 @@ img {
   color: #fff;
 }
 
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .navbar .navbar-brand,
 .navbar .nav-link {
   color: #fff;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .navbar .nav-link.active,
@@ -178,9 +186,15 @@ h1 {
   }
 }
 
-@media (min-width: 1200px) {
-  .row-cols-xl-3 > .col {
+@media (min-width: 992px) {
+  .row-cols-lg-3 > .col {
     width: 33.3333%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .row-cols-xl-4 > .col {
+    width: 25%;
   }
 }
 
