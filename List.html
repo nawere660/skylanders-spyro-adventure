@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Liste des figurines - Skylanders Spyro's Adventure</title>
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body class="bg-light text-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Skylanders Spyro's Adventure</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="List.html">Liste des figurines</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container py-5">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div>
+          <h1 class="h2">Liste des figurines</h1>
+          <p class="mb-0">Total: <span id="totalCount">32</span> figurines, en votre possession: <span id="ownedCount">20</span>.</p>
+        </div>
+        <div class="d-flex gap-2 flex-column flex-sm-row">
+          <div>
+            <label for="filterElement" class="form-label mb-1">Filtrer par élément</label>
+            <select id="filterElement" class="form-select">
+              <option value="all">Tous les éléments</option>
+              <option value="feu">Feu</option>
+              <option value="eau">Eau</option>
+              <option value="terre">Terre</option>
+              <option value="air">Air</option>
+              <option value="vie">Vie</option>
+              <option value="magie">Magie</option>
+              <option value="tech">Tech</option>
+              <option value="obscur">Obscur</option>
+              <option value="poison">Poison</option>
+              <option value="lumière">Lumière</option>
+              <option value="mort">Mort</option>
+              <option value="vent">Vent</option>
+            </select>
+          </div>
+          <div class="align-self-end">
+            <button id="clearFilter" class="btn btn-secondary mt-3 mt-sm-0">Réinitialiser</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4" id="figurineGrid"></div>
+    </main>
+
+    <footer class="py-4 bg-white border-top">
+      <div class="container text-center">
+        <p class="mb-0">© 2026 Skylanders Spyro's Adventure - Collection des figurines</p>
+      </div>
+    </footer>
+
+    <script src="figurines.js"></script>
+    <script>
+      function createElementBadge(element) {
+        const style = getElementStyle(element);
+        return `<span class="badge" style="background-color: ${style.color}; color: ${style.text};">${style.label}</span>`;
+      }
+
+      function createCard(figure) {
+        return `
+          <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body d-flex flex-column">
+                <div class="mb-3">
+                  <h2 class="h5 mb-1">${figure.name}</h2>
+                  <div>${createElementBadge(figure.element)}</div>
+                </div>
+                <p class="mb-3 text-muted">${figure.description}</p>
+                <div class="form-check mb-3">
+                  <input class="form-check-input figurine-checkbox" type="checkbox" id="check-${encodeURIComponent(figure.name)}" data-name="${encodeURIComponent(figure.name)}">
+                  <label class="form-check-label" for="check-${encodeURIComponent(figure.name)}">Sélectionner pour voir le détail</label>
+                </div>
+                <button type="button" class="btn btn-outline-primary mt-auto detail-button" data-name="${encodeURIComponent(figure.name)}" disabled>Voir le détail</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function initCardHandlers() {
+        document.querySelectorAll('.figurine-checkbox').forEach((checkbox) => {
+          checkbox.addEventListener('change', (event) => {
+            const card = event.target.closest('.card-body');
+            const button = card.querySelector('.detail-button');
+            if (button) {
+              button.disabled = !event.target.checked;
+            }
+          });
+        });
+
+        document.querySelectorAll('.detail-button').forEach((button) => {
+          button.addEventListener('click', () => {
+            if (!button.disabled) {
+              const name = button.getAttribute('data-name');
+              window.location.href = `detail.html?name=${name}`;
+            }
+          });
+        });
+      }
+
+      function renderFigures(filter = 'all') {
+        const container = document.getElementById('figurineGrid');
+        const filtered = figurines.filter(f => filter === 'all' || f.element.toLowerCase() === filter.toLowerCase());
+        container.innerHTML = filtered.map(createCard).join('');
+        initCardHandlers();
+      }
+
+      document.getElementById('filterElement').addEventListener('change', (event) => {
+        renderFigures(event.target.value);
+      });
+
+      document.getElementById('clearFilter').addEventListener('click', () => {
+        document.getElementById('filterElement').value = 'all';
+        renderFigures('all');
+      });
+
+      document.getElementById('totalCount').textContent = figurines.length;
+      document.getElementById('ownedCount').textContent = countOwned();
+      renderFigures();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-4ZStv7cQxvB0c+0k3i7Q8k9uZ2JjTgkGN+fX+RN1Y0+K4G4T7uq8UqR6WhLQfXg5" crossorigin="anonymous"></script>
+  </body>
+</html>
