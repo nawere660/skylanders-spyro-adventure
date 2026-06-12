@@ -6,44 +6,49 @@ const elementStyles = {
   vie: { color: '#198754', text: '#fff', label: 'Vie' },
   magie: { color: '#6f42c1', text: '#fff', label: 'Magie' },
   tech: { color: '#6c757d', text: '#fff', label: 'Tech' },
-  obscur: { color: '#343a40', text: '#fff', label: 'Obscur' },
-  poison: { color: '#2f855a', text: '#fff', label: 'Poison' },
-  lumière: { color: '#ffc107', text: '#000', label: 'Lumière' },
-  mort: { color: '#495057', text: '#fff', label: 'Mort' },
-  vent: { color: '#20c997', text: '#000', label: 'Vent' }
+  'mort-vivant': { color: '#343a40', text: '#fff', label: 'Mort-Vivant' }
 };
 
 const figurines = [
-  { name: 'Spyro', element: 'feu', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Souffle de flammes, Armure du feu, Charge céleste', description: 'Dragon courageux et héros du feu.' },
-  { name: 'Stealth Elf', element: 'vie', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 9', improvements: 'Flèches tranchantes, Pas furtif, Tempête de lames', description: 'Elfe agile experte en discrétion.' },
-  { name: 'Tree Rex', element: 'terre', owned: true, stats: 'Attaque 9, Défense 8, Vitesse 4', improvements: 'Force de la nature, Fracas sismique, Poing de roche', description: 'Puissant dinosaure de la terre.' },
-  { name: 'Gill Grunt', element: 'eau', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 7', improvements: 'Tir hydrocanon, Vague aqua, Missiles giclants', description: 'Maître de l’eau et des armes sous-marines.' },
-  { name: 'Eruptor', element: 'feu', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 5', improvements: 'Explosion de lave, Bouclier magmatique, Frappe terrestre', description: 'Golem de lave furieux.' },
-  { name: 'Trigger Happy', element: 'lumière', owned: true, stats: 'Attaque 9, Défense 4, Vitesse 8', improvements: 'Rafale de fléchettes, Tir explosif, Jackpot', description: 'Bandit de la chance avec des armes folles.' },
-  { name: 'Blaze', element: 'feu', owned: true, stats: 'Attaque 9, Défense 6, Vitesse 7', improvements: 'Lame flamboyante, Onde de feu, Danse incandescente', description: 'Guerrier ardent du feu.' },
-  { name: 'Zorch', element: 'magie', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 6', improvements: 'Magie bizarre, Rayon d’Illusion, Téléportation', description: 'Mage imprévisible à la magie instable.' },
-  { name: 'Sonic Boom', element: 'air', owned: false, stats: 'Attaque 8, Défense 5, Vitesse 10', improvements: 'Onde supersonique, Tornade éclair, Coup d’aile', description: 'Héros aérien rapide et puissant.' },
-  { name: 'Hex', element: 'magie', owned: true, stats: 'Attaque 6, Défense 5, Vitesse 6', improvements: 'Sangsue magique, Poisons occultes, Cercle de protection', description: 'Sorcière envoûtante et mystérieuse.' },
-  { name: 'Boomer', element: 'eau', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 6', improvements: 'Onde de choc, Plongeon aquatique, Bulle explosive', description: 'Skylander aquatique avec une grande agilité.' },
+  { name: 'Stump Smash', element: 'vie', owned: true, stats: 'Attaque 8, Défense 8, Vitesse 5', improvements: 'Ronce écrasante, Racine enracinée, Coup de souche', description: 'Géant robuste et protecteur de la vie.' },
+  { name: 'Stealth Elf', element: 'vie', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 9', improvements: 'Flèches sournoises, Pas furtif, Tempête de lames', description: 'Elfe silencieuse très rapide et agile.' },
+  { name: 'Zook', element: 'vie', owned: true, stats: 'Attaque 6, Défense 6, Vitesse 7', improvements: 'Flèches de bambou, Écailles protectrices, Flèche explosive', description: 'Archer naturel du terrain de vie.' },
+  { name: 'Camo', element: 'vie', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 8', improvements: 'Camouflage complet, Lames de lierre, Bond furtif', description: 'Maître de la forêt et de l’invisibilité.' },
+
+  { name: 'Terrafin', element: 'terre', owned: true, stats: 'Attaque 8, Défense 8, Vitesse 4', improvements: 'Rafale marine, Coup de roc, Tremblement de terre', description: 'Monstre marin et terrestre du royaume des rochers.' },
+  { name: 'Bash', element: 'terre', owned: true, stats: 'Attaque 9, Défense 7, Vitesse 5', improvements: 'Coup de tonnerre, Bouclier de pierre, Écrasement', description: 'Combatant lourd, parfait pour les murs et la terre.' },
+  { name: 'Dino-Rang', element: 'terre', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 7', improvements: 'Disque de roche, Tir sismique, Armure osseuse', description: 'Dinosaure qui lance des disques et contrôle la terre.' },
+  { name: 'Prism Break', element: 'terre', owned: true, stats: 'Attaque 7, Défense 7, Vitesse 5', improvements: 'Rayon prismatique, Choc de cristal, Barrière durable', description: 'Techno-soldat capable de manipuler les cristaux.' },
+
+  { name: 'Trigger Happy', element: 'tech', owned: true, stats: 'Attaque 9, Défense 4, Vitesse 8', improvements: 'Rafale de balles, Tir explosif, Jackpot', description: 'Bandit mécanique armé jusqu’aux dents.' },
+  { name: 'Drobot', element: 'tech', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Double laser, Armure robotique, Reconfiguration', description: 'Robot high-tech agile et puissant.' },
+  { name: 'Boomer', element: 'tech', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 7', improvements: 'Canon à bulles, Vague de choc, Champ électromagnétique', description: 'Skylander amphibie doté d’une technologie avancée.' },
+  { name: 'Drill Sergeant', element: 'tech', owned: true, stats: 'Attaque 8, Défense 8, Vitesse 5', improvements: 'Perçage puissant, Charge explosive, Commandement', description: 'Soldat robotisé équipé d’un énorme foret.' },
+
+  { name: 'Cynder', element: 'mort-vivant', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 7', improvements: 'Souffle d’ombre, Lame spectrale, Fureur ténébreuse', description: 'Dragon des ombres réanimé par la mort.' },
+  { name: 'Chop Chop', element: 'mort-vivant', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 6', improvements: 'Morsure spectrale, Tranchant osseux, Hurlement fantôme', description: 'Chevalier squelette au sabre mortel.' },
+  { name: 'Hex', element: 'mort-vivant', owned: true, stats: 'Attaque 6, Défense 5, Vitesse 6', improvements: 'Malédiction des os, Potion noire, Cercle protecteur', description: 'Sorcière vaudou qui manipule les morts.' },
+  { name: 'Ghost Roaster', element: 'mort-vivant', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 7', improvements: 'Explosion fantôme, Plumes spectrales, Feu spectral', description: 'Phénix spectral revenu de l’au-delà.' },
+
+  { name: 'Eruptor', element: 'feu', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 5', improvements: 'Explosion de lave, Bouclier magmatique, Frappe terrestre', description: 'Golem de magma en fusion.' },
+  { name: 'Flameslinger', element: 'feu', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 8', improvements: 'Pistolet de feu, Tir incandescent, Vague de flamme', description: 'Cow-boy pyro avec des tirs enflammés.' },
+  { name: 'Sunburn', element: 'feu', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Éclair solaire, Bouclier ardent, Flamme céleste', description: 'Créature solaire qui illumine le champ de bataille.' },
+  { name: 'Ignitor', element: 'feu', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Projectiles enflammés, Vague ardente, Frappe du brasier', description: 'Héros de feu rapide et explosif.' },
+
   { name: 'Whirlwind', element: 'air', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 8', improvements: 'Tornade rapide, Nuage de vent, Tempête des cieux', description: 'Maître des rafales et des tourbillons.' },
-  { name: 'Cynder', element: 'obscur', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Souffle ténébreux, Lames d’ombre, Charge abyssale', description: 'Dragon obsidienne sombre et puissant.' },
-  { name: 'Prism Break', element: 'tech', owned: true, stats: 'Attaque 7, Défense 7, Vitesse 5', improvements: 'Rayon laser, Éclat prismatique, Barrière multicolore', description: 'Inventeur robotique aux attaques technologiques.' },
-  { name: 'Chop Chop', element: 'mort', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 6', improvements: 'Morsure spectral, Tranchant osseux, Hurlement fantomatique', description: 'Chevalier squelette invincible.' },
-  { name: 'Flashwing', element: 'poison', owned: true, stats: 'Attaque 8, Défense 5, Vitesse 8', improvements: 'Plumes empoisonnées, Vol furtif, Cri corrosif', description: 'Skylander venimeux et rapide.' },
-  { name: 'Sunburn', element: 'feu', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Éclair de soleil, Bouclier ardent, Flamme céleste', description: 'Créature solaire puissante.' },
-  { name: 'Dark Spyro', element: 'obscur', owned: false, stats: 'Attaque 9, Défense 7, Vitesse 8', improvements: 'Souffle sombre, Griffe du chaos, Vortex noir', description: 'Version maléfique du célèbre dragon.' },
-  { name: 'Stump Smash', element: 'terre', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 5', improvements: 'Ronce écrasante, Racine enracinée, Coup de souche', description: 'Géant forestier avec une force écrasante.' },
-  { name: 'Ignitor', element: 'feu', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Projectiles enflammés, Vague incendiary, Frappe du brasier', description: 'Héros de feu puissant et explosif.' },
-  { name: 'Spyro Legendary', element: 'feu', owned: false, stats: 'Attaque 10, Défense 8, Vitesse 8', improvements: 'Inferno suprême, Météore ardent, Vol céleste', description: 'Spyro sous forme légendaire.' },
-  { name: 'Stealth Elf Classic', element: 'vie', owned: false, stats: 'Attaque 7, Défense 5, Vitesse 9', improvements: 'Flèche émeraude, Fuite silencieuse, Lame cache', description: 'Version classique de Stealth Elf.' },
-  { name: 'Dark Spyro Classic', element: 'obscur', owned: false, stats: 'Attaque 9, Défense 7, Vitesse 8', improvements: 'Souffle ténébreux, Rafale nocturne, Éclat du chaos', description: 'Classic Dark Spyro enveloppé d’ombre.' },
-  { name: 'Hot Head', element: 'feu', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Explosion de lave, Sable incandescent, Explosion de magma', description: 'Petit héros de feu furieux.' },
-  { name: 'Rattle Shake', element: 'mort', owned: false, stats: 'Attaque 7, Défense 5, Vitesse 7', improvements: 'Morsure mortelle, Onde des os, Terrifying roar', description: 'Champignon undead aux attaques empoisonnées.' },
-  { name: 'Magic Templar', element: 'magie', owned: false, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Éclair mystique, Bouclier mystique, Invocation d’esprit', description: 'Chevalier mystique du royaume magique.' },
-  { name: 'Hammer Slam Bow', element: 'vent', owned: false, stats: 'Attaque 8, Défense 6, Vitesse 6', improvements: 'Arc brisé, Tir supersonique, Marteau volant', description: 'Chasseur aérien puissant et précis.' },
-  { name: 'Pop Fizz', element: 'poison', owned: false, stats: 'Attaque 7, Défense 5, Vitesse 8', improvements: 'Potion explosive, Eau instable, Vapeur toxique', description: 'Scientifique fou capable de changer de forme.' },
-  { name: 'Electro', element: 'tech', owned: false, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Éclair électrique, Décharge statique, Vague de plasma', description: 'Guerrier électrique rapide et précis.' },
-  { name: 'Wrecking Ball', element: 'tech', owned: true, stats: 'Attaque 8, Défense 9, Vitesse 4', improvements: 'Rouleau destructeur, Champ de mines, Impact lourd', description: 'Robot blindé au pouvoir de démolition.' }
+  { name: 'Lightning Rod', element: 'air', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 8', improvements: 'Éclair contrôlé, Onde électrique, Surcharge', description: 'Héros mobile qui manipule l’électricité de l’air.' },
+  { name: 'Sonic Boom', element: 'air', owned: true, stats: 'Attaque 8, Défense 5, Vitesse 10', improvements: 'Onde supersonique, Tornade éclair, Coup d’aile', description: 'Skylander supersonique rapide et précis.' },
+  { name: 'Warnado', element: 'air', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 9', improvements: 'Cyclone dévastateur, Brise-vent, Rafale d’aile', description: 'Oiseau tempête qui lance des tornades.' },
+
+  { name: 'Gill Grunt', element: 'eau', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 7', improvements: 'Tir hydrocanon, Vague aqua, Missiles giclants', description: 'Maître de l’eau et des armes sous-marines.' },
+  { name: 'Slam Bam', element: 'eau', owned: true, stats: 'Attaque 8, Défense 7, Vitesse 6', improvements: 'Charge ondulante, Onde de choc, Coup de corail', description: 'Créer des vagues et des chocs aquatiques puissants.' },
+  { name: 'Zap', element: 'eau', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 8', improvements: 'Éclair liquide, Bolide marin, Saut geyser', description: 'Skylander rapide et électrique de l’eau.' },
+  { name: 'Wham Shell', element: 'eau', owned: true, stats: 'Attaque 8, Défense 8, Vitesse 5', improvements: 'Coquille chargée, Onde palpitante, Lame de moule', description: 'Guerrier aquatique avec une forte défense.' },
+
+  { name: 'Spyro', element: 'magie', owned: true, stats: 'Attaque 8, Défense 6, Vitesse 7', improvements: 'Souffle magique, Orbe mystique, Dragon aérien', description: 'Dragon légendaire utilisant la magie pure.' },
+  { name: 'Wrecking Ball', element: 'magie', owned: true, stats: 'Attaque 8, Défense 9, Vitesse 4', improvements: 'Boule d’énergie, Champ mystique, Impact lourd', description: 'Robot magique blindé par de l’énergie étrange.' },
+  { name: 'Double Trouble', element: 'magie', owned: true, stats: 'Attaque 7, Défense 5, Vitesse 7', improvements: 'Invocation de copies, Pistolet mystique, Diversion magique', description: 'Héroïne magique qui invoque des doubles fantômes.' },
+  { name: 'Voodood', element: 'magie', owned: true, stats: 'Attaque 7, Défense 6, Vitesse 6', improvements: 'Sort vaudou, Fumée mystique, Maléfice', description: 'Mage vaudou maître des éléments mystiques.' }
 ];
 
 function getSkylanderByName(name) {
