@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Liste des figurines - Skylanders Spyro's Adventure</title>
     <link href="style.css" rel="stylesheet">
+    <style>
+      .card {
+        opacity: 0.4;
+        transition: opacity 0.3s ease;
+      }
+      .card.owned {
+        opacity: 1;
+      }
+    </style>
   </head>
   <body class="bg-light text-dark">
     <nav class="navbar">
@@ -38,8 +47,12 @@
               <option value="mort">Mort-Vivant</option>
             </select>
           </div>
-          <div class="align-self-end">
-            <button id="clearFilter" class="btn btn-secondary mt-3 mt-sm-0">Réinitialiser</button>
+          <div class="d-flex flex-column gap-2">
+            <div class="form-check mt-3 mt-sm-0">
+              <input class="form-check-input" type="checkbox" id="selectedOnly">
+              <label class="form-check-label" for="selectedOnly">Afficher seulement sélectionnés</label>
+            </div>
+            <button id="clearFilter" class="btn btn-secondary">Réinitialiser</button>
           </div>
         </div>
       </div>
@@ -55,6 +68,8 @@
 
     <script src="figurines.js"></script>
     <script>
+      const storageKey = 'skylanders-owned';
+
       function createElementBadge(element) {
         const style = getElementStyle(element);
         return `<span class="badge" style="background-color: ${style.color}; color: ${style.text};">${style.label}</span>`;
@@ -65,10 +80,20 @@
         return `${element}/${filename}.html`;
       }
 
-      function createCard(figure) {
+      function getOwnedFromStorage() {
+        const saved = localStorage.getItem(storageKey);
+        return saved ? JSON.parse(saved) : [];
+      }
+
+      function saveOwnedToStorage(ownedList) {
+        localStorage.setItem(storageKey, JSON.stringify(ownedList));
+      }
+
+      function createCard(figure, ownedList) {
+        const isOwned = ownedList.includes(figure.name);
         return `
           <div class="col">
-            <div class="card h-100 shadow-sm border-0">
+            <div class="card h-100 shadow-sm border-0${isOwned ? ' owned' : ''}">
               <div class="card-body d-flex flex-column">
                 <div class="mb-3">
                   <h2 class="h5 mb-1">${figure.name}</h2>
@@ -76,10 +101,10 @@
                 </div>
                 <p class="mb-3 text-muted">${figure.description}</p>
                 <div class="form-check mb-3">
-                  <input class="form-check-input figurine-checkbox" type="checkbox" id="check-${encodeURIComponent(figure.name)}" data-name="${encodeURIComponent(figure.name)}" data-element="${figure.element}">
+                  <input class="form-check-input figurine-checkbox" type="checkbox" id="check-${encodeURIComponent(figure.name)}" data-name="${encodeURIComponent(figure.name)}" data-element="${figure.element}" ${isOwned ? 'checked' : ''}>
                   <label class="form-check-label" for="check-${encodeURIComponent(figure.name)}">Sélectionner pour voir le détail</label>
                 </div>
-                <button type="button" class="btn btn-outline-primary mt-auto detail-button" data-name="${encodeURIComponent(figure.name)}" data-element="${figure.element}" disabled>Voir le détail</button>
+                <button type="button" class="btn btn-outline-primary mt-auto detail-button" data-name="${encodeURIComponent(figure.name)}" data-element="${figure.element}" ${isOwned ? '' : 'disabled'}>Voir le détail</button>
               </div>
             </div>
           </div>
@@ -89,11 +114,29 @@
       function initCardHandlers() {
         document.querySelectorAll('.figurine-checkbox').forEach((checkbox) => {
           checkbox.addEventListener('change', (event) => {
-            const card = event.target.closest('.card-body');
-            const button = card.querySelector('.detail-button');
-            if (button) {
-              button.disabled = !event.target.checked;
+            const col = event.target.closest('.col');
+            const card = col.querySelector('.card');
+            const button = col.querySelector('.detail-button');
+            const name = decodeURIComponent(event.target.getAttribute('data-name'));
+            const ownedList = getOwnedFromStorage();
+
+            if (event.target.checked) {
+              card.classList.add('owned');
+              button.disabled = false;
+              if (!ownedList.includes(name)) {
+                ownedList.push(name);
+              }
+            } else {
+              card.classList.remove('owned');
+              button.disabled = true;
+              const index = ownedList.indexOf(name);
+              if (index !== -1) {
+                ownedList.splice(index, 1);
+              }
             }
+
+            saveOwnedToStorage(ownedList);
+            updateOwnedCount();
           });
         });
 
@@ -109,10 +152,19 @@
         });
       }
 
+      function updateOwnedCount() {
+        const ownedCount = getOwnedFromStorage().length;
+        document.getElementById('ownedCount').textContent = ownedCount;
+      }
+
       function renderFigures(filter = 'all') {
         const container = document.getElementById('figurineGrid');
-        const filtered = figurines.filter(f => filter === 'all' || f.element.toLowerCase() === filter.toLowerCase());
-        container.innerHTML = filtered.map(createCard).join('');
+        const ownedList = getOwnedFromStorage();
+        const showSelectedOnly = document.getElementById('selectedOnly').checked;
+        const filtered = figurines
+          .filter(f => filter === 'all' || f.element.toLowerCase() === filter.toLowerCase())
+          .filter(f => !showSelectedOnly || ownedList.includes(f.name));
+        container.innerHTML = filtered.map((figure) => createCard(figure, ownedList)).join('');
         initCardHandlers();
       }
 
@@ -120,13 +172,18 @@
         renderFigures(event.target.value);
       });
 
+      document.getElementById('selectedOnly').addEventListener('change', () => {
+        renderFigures(document.getElementById('filterElement').value);
+      });
+
       document.getElementById('clearFilter').addEventListener('click', () => {
         document.getElementById('filterElement').value = 'all';
+        document.getElementById('selectedOnly').checked = false;
         renderFigures('all');
       });
 
       document.getElementById('totalCount').textContent = figurines.length;
-      document.getElementById('ownedCount').textContent = countOwned();
+      updateOwnedCount();
       renderFigures();
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-4ZStv7cQxvB0c+0k3i7Q8k9uZ2JjTgkGN+fX+RN1Y0+K4G4T7uq8UqR6WhLQfXg5" crossorigin="anonymous"></script>
